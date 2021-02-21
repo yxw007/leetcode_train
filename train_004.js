@@ -7,6 +7,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
     if (nums1.length <= 0 && nums2.length === 1) {
         return nums2[0];
     }
+
     if (nums2.length <= 0 && nums1.length === 1) {
         return nums1[0];
     }
@@ -17,7 +18,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
 function mergeMiddle(left, right) {
     let result = [];
-    let totalNum = left.length + right.leng
+    let totalNum = left.length + right.length;
     let n = totalNum / 2;
     let mode = totalNum % 2;
     let needGetIndex = [];
@@ -40,14 +41,12 @@ function mergeMiddle(left, right) {
                     break;
                 }
             }
-
             while (right.length > 0) {
                 result.push(right.shift());
                 if (result.length > n) {
                     break;
                 }
             }
-
         }
 
         if (result.length > n) {
@@ -67,3 +66,4 @@ function mergeMiddle(left, right) {
 
 let ret = findMedianSortedArrays([2], []);
 console.log(ret);
+

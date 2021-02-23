@@ -7,13 +7,36 @@
 //*************************************************************************
 
 /**
+ * 题目：Leetcode-cn,2-两数相加
+ * 解题思路：
+ * 第1步: 甄别长短链表，分别为longListNode、shortListNode
+ * 第2步: 先遍历短列表，再嵌套遍历长列表，curShortNode.val + curLongNode.val 求和sum
+ * 第3步: 判断sum < 10
+ *          是： curLongNode.val = sum
+ *          否:
+ *              curLongNode.val = sum%10
+ *              curLongNode.next.val +=1
+ *              curNode = curLongNode.next
+ *                  while(curNode && curNode.val > 10)
+ *                      是：
+ *                          next.val=0;
+ *                          next.next.val +=1
+ *                          让当前节点指向下一个节点
+ *                          curNode = curNode.next
+ *                      否: break
+ *
+ *              让当前节点指向下一个节点
+ *              curShortNode = curShortNode.next;
+ *              curLongNode = curLongNode.next;
+ */
+
+/**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
  *     this.val = (val===undefined ? 0 : val)
  *     this.next = (next===undefined ? null : next)
  * }
  */
-
 function ListNode(val, next) {
     this.val = (val === undefined ? 0 : val)
     this.next = (next === undefined ? null : next)

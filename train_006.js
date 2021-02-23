@@ -1,8 +1,7 @@
 //*************************************************************************
-//     创建日期:     2021-02-22 10:02:03
+//     创建日期:     2021-02-23 09:02:42
 //     文件名称:     train_006.js
 //     创建作者:     Harry
-//     版权所有:     剑齿虎
 //     开发版本:     V1.0
 //     相关说明:
 //*************************************************************************
@@ -22,7 +21,7 @@ var convert = function (s, numRows) {
     let cur = 0;
     let isV = true;
     for (let i = 0; i < arr.length; i++) {
-        let rowIndex = cur % numRows;
+        let rowIndex = isV ? cur % numRows : (cur - 1) % numRows;
         let rowArr;
         if (rowIndex < twoArr.length) {
             rowArr = twoArr[rowIndex];
@@ -32,15 +31,17 @@ var convert = function (s, numRows) {
         let item = arr[i];
         rowArr.push(item);
         twoArr[rowIndex] = rowArr;
-        if (isV && cur + 1 <= numRows) {
-            ++cur;
-            if (cur > numRows) {
+        if (isV) {
+            if (cur < numRows) {
+                ++cur;
+            }
+            if (cur >= numRows) {
                 --cur;
                 isV = false;
             }
         } else {
             --cur;
-            if (cur < 0) {
+            if (cur <= 0) {
                 ++cur;
                 isV = true;
             }
@@ -48,9 +49,13 @@ var convert = function (s, numRows) {
     }
 
     let ret = [...twoArr];
-    let result = ret.toString();
+    let result = "";
+    for (let idx in twoArr) {
+        result += twoArr[idx].join('');
+    }
+
     return result;
 };
 
-let ret = convert('PAYPALI', 3);
+let ret = convert('PAYPALI', 4);
 console.log(ret);

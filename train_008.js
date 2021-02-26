@@ -68,5 +68,12 @@ var myAtoi = function (s) {
     }
 };
 
-let result = myAtoi("123-");
+function myAtoi2(s) {
+    const target = parseInt(s.trim()) || 0;
+    if (target >= 2147483647) return 2147483647;
+    if (target <= -2147483648) return -2147483648;
+    return target;
+};
+
+let result = myAtoi2("abc");
 console.log(result);

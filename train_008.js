@@ -27,56 +27,44 @@
  */
 var myAtoi = function (s) {
     s = s.trim();
-
-    let str = "";
+    let buffer = "";
     let sign = "";
     for (let i = 0; i < s.length; i++) {
         let char = s[i];
         if (char.length <= 0) {
             continue;
         }
+
         if (char === "-" || char === "+") {
-            if (sign.trim().length <= 0 && str.length <= 0) {
+            if (sign.trim().length <= 0 && buffer.length <= 0) {
                 sign = char;
                 continue;
             } else {
                 break;
             }
         }
+
         let charNum = s.charCodeAt(i) - 48;
-        if (charNum === 0 && i + 1 < s.length && (s[i + 1] === "-" || s[i + 1] === "+")) {
-            break;
-        }
         if (charNum >= 0 && charNum <= 9) {
-            if (charNum === 0 && str.length <= 0) {
-                continue
-            }
-            str += char;
+            buffer += char;
         } else {
             break;
         }
     }
 
-    if (str.length <= 0) {
+    if (buffer.length <= 0) {
         return 0;
     }
 
-    if (sign === "+" || sign.length <= 0) {
-        let num1 = Number.parseInt(str);
-        let num2 = (Math.pow(2, 31) - 1);
-        if (num1 < num2) {
-            return num1;
-        } else {
-            return num2;
-        }
+    let num = Number.parseInt(sign + buffer);
+    let min = -Math.pow(2, 31);
+    let max = Math.pow(2, 31) - 1;
+    if (num > max) {
+        return max;
+    } else if (num < min) {
+        return min;
     } else {
-        let num1 = Number.parseInt(sign + str);
-        let num2 = -Math.pow(2, 31);
-        if (num1 > num2) {
-            return num1;
-        } else {
-            return num2;
-        }
+        return num;
     }
 };
 
